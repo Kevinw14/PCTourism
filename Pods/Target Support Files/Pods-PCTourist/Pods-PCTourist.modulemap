@@ -1,0 +1,6 @@
+framework module Pods_PCTourist {
+  umbrella header "Pods-PCTourist-umbrella.h"
+
+  export *
+  module * { export * }
+}
