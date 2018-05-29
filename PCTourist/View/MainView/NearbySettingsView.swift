@@ -86,6 +86,16 @@ class NearbySettingsView: UIView, LifetimeTrackable {
         return button
     }()
     
+    let iconLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        label.text = "Icon made by freepik from www.flaticon.com"
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var nearbySettingsController: NearbySettingsViewController? {
         didSet {
             increaseButton.addTarget(nearbySettingsController, action: #selector(nearbySettingsController?.increaseRadius), for: .touchUpInside)
@@ -115,6 +125,7 @@ class NearbySettingsView: UIView, LifetimeTrackable {
         addSubview(decreaseButton)
         addSubview(applyButton)
         addSubview(cancelButton)
+        addSubview(iconLabel)
         
         settingsBackgroundView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         settingsBackgroundView.topAnchor.constraint(equalTo: topAnchor).isActive = true
@@ -147,5 +158,8 @@ class NearbySettingsView: UIView, LifetimeTrackable {
         applyButton.heightAnchor.constraint(equalTo: cancelButton.heightAnchor).isActive = true
         applyButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor).isActive = true
         applyButton.topAnchor.constraint(equalTo: cancelButton.topAnchor).isActive = true
+        
+        iconLabel.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        iconLabel.centerXAnchor.constraint(lessThanOrEqualTo: centerXAnchor).isActive = true
     }
 }
