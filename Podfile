@@ -6,10 +6,10 @@ target 'PCTourist' do
   use_frameworks!
 
 pod'Kingfisher'
-pod'Firebase/Database'
 pod'DZNEmptyDataSet'
 pod'LifetimeTracker'
 pod'Jelly'
+pod'SkeletonView'
   # Pods for PCTourist
 
 end

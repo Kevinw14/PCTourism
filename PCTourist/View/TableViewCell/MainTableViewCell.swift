@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class MainTableViewCell: UITableViewCell {
     
@@ -27,6 +28,7 @@ class MainTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
+        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -44,6 +46,7 @@ class MainTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.textColor = .white
         label.adjustsFontSizeToFitWidth = true
+        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -53,6 +56,7 @@ class MainTableViewCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         label.textColor = .white
         label.layer.opacity = 0.8
+        label.isSkeletonable = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,6 +64,7 @@ class MainTableViewCell: UITableViewCell {
     let imageViewOverlay: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+        view.isSkeletonable = false
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

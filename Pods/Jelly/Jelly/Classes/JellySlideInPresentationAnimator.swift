@@ -37,7 +37,6 @@ extension JellySlideInPresentationAnimator : UIViewControllerAnimatedTransitioni
         
         let presentedFrame = transitionContext.finalFrame(for: controllerToAnimate) // Frame the ViewController will have after animation completes
         let dismissedFrame = calculateDismissedFrame(from: presentedFrame, usingDirection: self.direction, andContext: transitionContext) // Frame the ViewController will have when he is dismissed
-        print(dismissedFrame)
         
         let initialFrame = isPresentation ? dismissedFrame : presentedFrame
         let finalFrame = isPresentation ? presentedFrame : dismissedFrame

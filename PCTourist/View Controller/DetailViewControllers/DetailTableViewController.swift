@@ -8,8 +8,11 @@
 
 import UIKit
 import MapKit
+import LifetimeTracker
 
-class DetailTableViewController: UITableViewController {
+class DetailTableViewController: UITableViewController, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Detail Table View Controller")
+    
     
     //MARK: - Properties
     
@@ -23,6 +26,7 @@ class DetailTableViewController: UITableViewController {
         detailTableView = DetailTableView()
         detailTableView.detailController = self
         showLocationOnMapView()
+        trackLifetime()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -33,7 +37,7 @@ class DetailTableViewController: UITableViewController {
     //MARK: - Table View Datasource & Delegate
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 12
+        return 13
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -78,7 +82,7 @@ class DetailTableViewController: UITableViewController {
             return detailTableView.phoneCell
             }
 
-        case 12: if currentBusiness?.hours?.todaysHours != nil {
+        case 12: if currentBusiness?.hours?.hours != nil {
             return detailTableView.hoursCell
             }
 
@@ -183,7 +187,7 @@ class DetailTableViewController: UITableViewController {
             return 0
             }
             //Business Hours
-        case 12: if currentBusiness?.hours?.todaysHours == nil {
+        case 12: if currentBusiness?.hours?.hours == nil {
             return 0
             }
         default: return 50
@@ -277,11 +281,12 @@ class DetailTableViewController: UITableViewController {
         guard let latitude = currentBusiness?.location.latitude, let longitude = currentBusiness?.location.longitude else { return }
 
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
-        let annotation = MKPointAnnotation()
-        annotation.title = currentBusiness?.name
-        annotation.coordinate = coordinates
-        detailTableView.placesMapView.addAnnotation(annotation)
-
+        let pointAnnotation = MKPointAnnotation()
+        pointAnnotation.title = currentBusiness?.name
+        pointAnnotation.coordinate = coordinates
+        
+        detailTableView.placesMapView.addAnnotation(pointAnnotation)
+        
         let span = MKCoordinateSpanMake(0.005, 0.005)
         let region = MKCoordinateRegionMake(coordinates, span)
         detailTableView.placesMapView.setRegion(region, animated: true)

@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class NearbyView: UIView {
+class NearbyView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Nearby View")
+    
     
     //MARK: - Properties
     
@@ -26,4 +29,13 @@ class NearbyView: UIView {
         let refreshControl = UIRefreshControl()
         return refreshControl
     }()
+    
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        trackLifetime()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

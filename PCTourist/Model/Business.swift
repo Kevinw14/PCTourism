@@ -27,20 +27,21 @@ struct Business: Codable {
     let location: Location
     let airbnb: String?
     var distance: Double {
-        let locationManager = LocationManager()
-        return locationManager.findDistanceToLocationInMiles(latitude: location.latitude, longitude: location.longitude)
+            let locationManager = LocationManager()
+            return locationManager.findDistanceToLocationInMiles(latitude: location.latitude, longitude: location.longitude)
     }
     
     init?(jsonDictionary: [String:Any]) {
         guard let name = jsonDictionary["name"] as? String,
-        let address = jsonDictionary["address"] as? String,
-        let city = jsonDictionary["city"] as? String,
-        let state = jsonDictionary["state"] as? String,
-        let postal = jsonDictionary["postal"] as? String,
-        let category = jsonDictionary["category"] as? String,
-        let imageURL = jsonDictionary["imageURL"] as? String,
+            let address = jsonDictionary["address"] as? String,
+            let city = jsonDictionary["city"] as? String,
+            let state = jsonDictionary["state"] as? String,
+            let postal = jsonDictionary["postal"] as? String,
+            let category = jsonDictionary["category"] as? String,
+            let imageURL = jsonDictionary["imageURL"] as? String,
             let locationDictionary = jsonDictionary["location"] as? [String:Any],
-        let location = Location(jsonDictionary: locationDictionary) else { return nil }
+            let location = Location(jsonDictionary: locationDictionary) else { return nil }
+        
         self.name = name
         self.address = address
         self.city = city
@@ -71,18 +72,10 @@ struct Location: Codable {
 }
 
 struct Hours: Codable {
-    let todaysHours: String?
-    let todaysDay: String?
-    
-    private static func dayOfWeek() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: Date())
-    }
+    let hours: String?
     
     init?(jsonDictionary: [String:Any]) {
-        let todaysHours = jsonDictionary[Hours.dayOfWeek().lowercased()] as? String
-        self.todaysHours = todaysHours
-        self.todaysDay = Hours.dayOfWeek()
+        let todaysHours = jsonDictionary[dayOfWeek().lowercased()] as? String
+        self.hours = todaysHours
     }
 }

@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class SocialWebViewController: UIViewController {
+class SocialWebViewController: UIViewController, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Social Web Controller")
     
     //MARK: - Properties
     
@@ -22,5 +24,6 @@ class SocialWebViewController: UIViewController {
         guard let request = urlRequest else { return }
         view.addSubview(socialWebView)
         socialWebView.socialWebView.loadRequest(request)
+        trackLifetime()
     }
 }

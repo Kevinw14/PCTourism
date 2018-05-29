@@ -9,8 +9,11 @@
 
 import UIKit
 import MapKit
+import LifetimeTracker
 
-class DetailMapView: UIView {
+class DetailMapView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Detail Map View")
+    
     
     let mapView: MKMapView = {
         let mapView = MKMapView()
@@ -20,6 +23,7 @@ class DetailMapView: UIView {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
+        trackLifetime()
     }
     
     required init?(coder aDecoder: NSCoder) {

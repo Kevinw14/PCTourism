@@ -21,12 +21,12 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>5</string>
+	<string>6</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>instagram</string>
 		<string>twitter</string>
-        <string>airbnb</string>
+		<string>airbnb</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

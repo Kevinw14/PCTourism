@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class AttractionView: UIView {
+class AttractionView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Attraction View")
+    
     
     var attractionController: AttractionTableViewController? {
         didSet {
@@ -27,5 +30,14 @@ class AttractionView: UIView {
         searchController.obscuresBackgroundDuringPresentation = true
         return searchController
     }()
+    
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        trackLifetime()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 

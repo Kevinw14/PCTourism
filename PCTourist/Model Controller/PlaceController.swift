@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import LifetimeTracker
 
-class PlaceController {
+class PlaceController: LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Place Controller")
+    
     
     //MARK: - Private Keys
     
@@ -41,16 +44,17 @@ class PlaceController {
             
             if let data = data {
                 do {
-                    let jsonDecoder = JSONDecoder()
-                    let places = try jsonDecoder.decode([Business].self, from: data)
+                    guard let jsonDictionaryArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String:Any]] else { return }
                     var fetchedPlaces: [Business] = []
-                    for place in places {
+                    for jsonDictionary in jsonDictionaryArray {
+                        guard let place = Business(jsonDictionary: jsonDictionary) else { return }
                         fetchedPlaces.append(place)
                     }
-                    self?.places = fetchedPlaces.sorted{ $0.name < $1.name}
+                    DispatchQueue.main.async {
+                        self?.places = fetchedPlaces.sorted(by: {$0.name < $1.name})
+                    }
                 } catch {
-                    print("Error in \(#function) Data: \(error.localizedDescription)")
-                    return
+                    print("Error in Serialization: \(error.localizedDescription)")
                 }
             }
         }
@@ -61,5 +65,6 @@ class PlaceController {
     
     private init() {
         fetchPlacesFromFB()
+        trackLifetime()
     }
 }

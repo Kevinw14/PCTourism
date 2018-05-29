@@ -8,13 +8,17 @@
 
 import UIKit
 import CoreLocation
+import LifetimeTracker
 
-class LocationManager: CLLocationManager {
+class LocationManager: CLLocationManager, LifetimeTrackable {
+    
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 4, groupName: "Location Tracker")
     
     override init() {
         super .init()
         self.desiredAccuracy = kCLLocationAccuracyBest
         self.requestWhenInUseAuthorization()
+        trackLifetime()
     }
     
     /// Finds distance between user's location to destination location in mile.

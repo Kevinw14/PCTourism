@@ -8,21 +8,29 @@
 
 import UIKit
 import Jelly
+import LifetimeTracker
 
 protocol NearbySettingsDelegate: class {
     func applySettings(_ nearbySettingsViewController: NearbySettingsViewController, radiusChangedTo radius: Double)
 }
 
-class NearbySettingsViewController: UIViewController {
+class NearbySettingsViewController: UIViewController, LifetimeTrackable {
+    
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Nearby Settings View Controller")
+    
     
     //MARK: - Properties
+    
     var nearbySettingsView: NearbySettingsView!
     weak var delegate: NearbySettingsDelegate?
     var radius = 5.0
     
+    //MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super .viewDidLoad()
-        nearbySettingsView = NearbySettingsView(frame: UIScreen.main.bounds)
+        trackLifetime()
+        nearbySettingsView = NearbySettingsView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 10, height: 300))
         view.addSubview(nearbySettingsView)
         nearbySettingsView.nearbySettingsController = self
         if UserDefaults().double(forKey: "radius") != 0.0 {
@@ -35,6 +43,7 @@ class NearbySettingsViewController: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         nearbySettingsView = nil
+        
     }
     
     //MARK: - Actions
@@ -66,10 +75,13 @@ class NearbySettingsViewController: UIViewController {
     //MARK: - Private Functions
     
     private func setupViews() {
-        if radius == 1.0 {
-            nearbySettingsView.radiusLabel.text = "1 mile"
-        } else {
-            nearbySettingsView.radiusLabel.text = "\(Int(radius)) miles"
+        nearbySettingsView.radiusLabel.text = "\(Int(radius)) miles"
+        
+        switch radius {
+        case 5.0: nearbySettingsView.decreaseButton.isEnabled = false
+        case 50.0: nearbySettingsView.increaseButton.isEnabled = false
+        default: nearbySettingsView.increaseButton.isEnabled = true
+        nearbySettingsView.decreaseButton.isEnabled = true
         }
     }
 }

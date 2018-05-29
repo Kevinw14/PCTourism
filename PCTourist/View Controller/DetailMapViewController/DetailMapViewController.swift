@@ -22,6 +22,7 @@ class DetailMapViewController: UIViewController {
         view.addSubview(restaurantDetailMapView)
         restaurantDetailMapView.mapView.showsUserLocation = true
         showLocationOnMap()
+        trackLifetime()
     }
     
     //MARK: - Private Functions

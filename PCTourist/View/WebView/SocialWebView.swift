@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class SocialWebView: UIView {
+class SocialWebView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Social Web View")
+    
     
     //MARK: - Properties
     
@@ -22,6 +25,7 @@ class SocialWebView: UIView {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
+        trackLifetime()
     }
     
     required init?(coder aDecoder: NSCoder) {

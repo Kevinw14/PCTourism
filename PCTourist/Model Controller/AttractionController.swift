@@ -7,8 +7,11 @@
 //
 
 import Foundation
+import LifetimeTracker
 
-class AttractionController {
+class AttractionController: LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Attraction Controller")
+    
     
     //MARK: - Private Keys
     
@@ -40,16 +43,17 @@ class AttractionController {
             
             if let data = data {
                 do {
-                    let jsonDecoder = JSONDecoder()
-                    let attractions = try jsonDecoder.decode([Business].self, from: data)
+                    guard let jsonDictionaryArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String:Any]] else { return }
                     var fetchedAttractions: [Business] = []
-                    for attraction in attractions {
+                    for jsonDictionary in jsonDictionaryArray {
+                        guard let attraction = Business(jsonDictionary: jsonDictionary) else { return }
                         fetchedAttractions.append(attraction)
                     }
-                    self?.attractions = fetchedAttractions.sorted{ $0.name < $1.name}
+                    DispatchQueue.main.async {
+                        self?.attractions = fetchedAttractions.sorted(by: {$0.name < $1.name})
+                    }
                 } catch {
-                    print("Error in \(#function) Data: \(error.localizedDescription)")
-                    return
+                    print("Error in Serialization: \(error.localizedDescription)")
                 }
             }
         }
@@ -60,5 +64,6 @@ class AttractionController {
     
     private init() {
         fetchAttractionsFromFB()
+        trackLifetime()
     }
 }

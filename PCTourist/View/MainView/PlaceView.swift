@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class PlaceView: UIView {
+class PlaceView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration: LifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Place View")
     
     var placeController: PlacesTableViewController? {
         didSet {
@@ -27,4 +29,13 @@ class PlaceView: UIView {
         searchController.obscuresBackgroundDuringPresentation = true
         return searchController
     }()
+    
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        trackLifetime()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

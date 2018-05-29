@@ -10,10 +10,13 @@ import UIKit
 import CoreLocation
 import DZNEmptyDataSet
 import Jelly
+import LifetimeTracker
 
 private let reuseIdentifier = "NearbyCell"
 
-class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
+class NearbyTableViewController: UITableViewController, NearbySettingsDelegate, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Nearby Table View Controller")
+    
     
     //MARK: - Properties
     
@@ -22,6 +25,8 @@ class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
     var nearbyLocationManager = LocationManager()
     var shouldOffset = false
     var animator: JellyAnimator?
+    var nearbySettingsViewController: NearbySettingsViewController!
+    let lightHapticGenerator = UIImpactFeedbackGenerator(style: .light)
     
     //MARK: - Life Cycle
     
@@ -34,6 +39,7 @@ class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
     override func viewDidDisappear(_ animated: Bool) {
         super .viewDidDisappear(animated)
         nearbyLocationManager.stopUpdatingLocation()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,12 +63,13 @@ class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
         nearbyLocationManager.delegate = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
+        tableView.rowHeight = 235
         tableView.register(MainTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: NearbyController.NotificationKeys.updateTable, object:  nil)
     }
     
     @objc func nearbySettings() {
-        let settingsViewController = NearbySettingsViewController()
+        nearbySettingsViewController = NearbySettingsViewController()
         let settingsPresentation = JellySlideInPresentation(dismissCurve: .linear,
                                                          presentationCurve: .linear,
                                                          cornerRadius: 10,
@@ -78,14 +85,15 @@ class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
                                                          marginGuards: UIEdgeInsetsMake(0, 10, 0, 10),
                                                          corners: [.allCorners])
         self.animator = JellyAnimator(presentation: settingsPresentation)
-        self.animator?.prepare(viewController: settingsViewController)
-        settingsViewController.delegate = self
-        self.present(settingsViewController, animated: true, completion: nil)
+        self.animator?.prepare(viewController: nearbySettingsViewController)
+        nearbySettingsViewController.delegate = self
+        self.present(nearbySettingsViewController, animated: true, completion: nil)
     }
     
     func applySettings(_ nearbySettingsViewController: NearbySettingsViewController, radiusChangedTo radius: Double) {
         NearbyController.shared.radius = radius
         NearbyController.shared.fetchNearbyLocations()
+        tableView.reloadData()
     }
 }
 
@@ -94,7 +102,11 @@ class NearbyTableViewController: UITableViewController, NearbySettingsDelegate {
 extension NearbyTableViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        tableView.reloadData()
+        switch status {
+        case .authorizedWhenInUse:
+            NearbyController.shared.fetchNearbyLocations()
+        default: break
+        }
     }
 }
 
@@ -164,6 +176,7 @@ extension NearbyTableViewController {
         let detailTableViewController = DetailTableViewController(style: .grouped)
         let nearbyLocation = NearbyController.shared.nearbyLocations[indexPath.row]
         detailTableViewController.currentBusiness = nearbyLocation
+        lightHapticGenerator.impactOccurred()
         navigationController?.pushViewController(detailTableViewController, animated: true)
     }
     

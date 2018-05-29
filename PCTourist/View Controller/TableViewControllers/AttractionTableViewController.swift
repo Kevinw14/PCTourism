@@ -8,10 +8,14 @@
 
 import UIKit
 import CoreLocation
+import LifetimeTracker
+import SkeletonView
 
 private let reuseIdentifier = "AttractionCell"
 
-class AttractionTableViewController: UITableViewController {
+class AttractionTableViewController: UITableViewController, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Attraction Table View Controller")
+    
     
     //MARK: - Properties
     
@@ -19,6 +23,7 @@ class AttractionTableViewController: UITableViewController {
     var isSearchActive = false
     var filteredAttractions: [Business] = []
     var attractionLocationManager = LocationManager()
+    let lightHapticGenerator = UIImpactFeedbackGenerator(style: .light)
     
     //MARK: - Life Cycle
     
@@ -32,13 +37,17 @@ class AttractionTableViewController: UITableViewController {
     @objc private func updateTable() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
+            self.view.stopSkeletonAnimation()
+            self.view.hideSkeleton()
         }
     }
     
     private func setupView() {
         attractionView.attractionController = self
         attractionLocationManager.delegate = self
+        view.showAnimatedGradientSkeleton()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTable), name: AttractionController.NotificationKeys.updateTable, object: nil)
+        tableView.rowHeight = 235
         self.tableView.register(MainTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
         LocationManager().startUpdatingLocation()
     }
@@ -47,6 +56,8 @@ class AttractionTableViewController: UITableViewController {
 //MARK: - Search Bar Delegate
 
 extension AttractionTableViewController: UISearchBarDelegate {
+    
+    //Searches for restaurant using name.
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredAttractions = AttractionController.shared.attractions.filter({ (attraction) -> Bool in
             return attraction.name.lowercased().contains(searchText.lowercased())
@@ -95,11 +106,15 @@ extension AttractionTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? MainTableViewCell else { return UITableViewCell() }
         
+        //Gets attraction depending on whether a search is taking place.
         let attraction = isSearchActive ? filteredAttractions[indexPath.row] : AttractionController.shared.attractions[indexPath.row]
         
+        //Sets up the cell's view.
         cell.nameLabel.text = attraction.name
         cell.mainImageView.kf.setImage(with: URL(string: attraction.imageURL))
         cell.addressLabel.text = "\(attraction.address), \(attraction.city), \(attraction.state), \(attraction.postal)"
+        
+        //Determines if location services are in use. Hides or shows milage depening if it's in use.
         switch CLLocationManager.authorizationStatus() {
         case .authorizedWhenInUse, .authorizedAlways:
             cell.distanceLabel.isHidden = false
@@ -118,6 +133,7 @@ extension AttractionTableViewController {
         let detailViewController = DetailTableViewController(style: .grouped)
         let business = isSearchActive ? filteredAttractions[indexPath.row] : AttractionController.shared.attractions[indexPath.row]
         detailViewController.currentBusiness = business
+        lightHapticGenerator.impactOccurred()
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -8,8 +8,11 @@
 
 import UIKit
 import MapKit
+import LifetimeTracker
 
-class DetailTableView: UIView {
+class DetailTableView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Detail Table View")
+    
     //MARK: - Properties
     
     let imageViewCell = UITableViewCell()
@@ -56,6 +59,8 @@ class DetailTableView: UIView {
         mapView.showsUserLocation = true
         mapView.isScrollEnabled = false
         mapView.isZoomEnabled = false
+        mapView.showsScale = false
+        mapView.showsCompass = false
         mapView.translatesAutoresizingMaskIntoConstraints = false
         return mapView
     }()
@@ -65,6 +70,16 @@ class DetailTableView: UIView {
             updateViews()
             setupNavigationBar()
         }
+    }
+    
+    
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        trackLifetime()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     //MARK: - Update Views
@@ -148,7 +163,7 @@ class DetailTableView: UIView {
         hoursCell.textLabel?.text = "hours".uppercased()
         hoursCell.detailTextLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         hoursCell.detailTextLabel?.textColor = .black
-        hoursCell.detailTextLabel?.text = "\(business.hours?.todaysDay?.uppercased().prefix(3) ?? ""): \(business.hours?.todaysHours ?? "")"
+        hoursCell.detailTextLabel?.text = "\(dayOfWeek().prefix(3)): \(business.hours?.hours ?? "")"
     }
     
     private func setupNavigationBar() {

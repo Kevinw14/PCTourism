@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class NearbySettingsView: UIView {
+class NearbySettingsView: UIView, LifetimeTrackable {
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Nearby Settings View")
     
     //MARK: - Properties
     
@@ -96,6 +98,7 @@ class NearbySettingsView: UIView {
     override init(frame: CGRect) {
         super .init(frame: frame)
         backgroundColor = .white
+        trackLifetime()
     }
     
     required init?(coder aDecoder: NSCoder) {

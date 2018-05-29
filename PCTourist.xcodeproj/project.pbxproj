@@ -18,6 +18,8 @@
 		A069BBCA20746250002FAF6F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A069BBC920746250002FAF6F /* AppDelegate.swift */; };
 		A069BBD120746251002FAF6F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A069BBD020746251002FAF6F /* Assets.xcassets */; };
 		A069BBD420746251002FAF6F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A069BBD220746251002FAF6F /* LaunchScreen.storyboard */; };
+		A08FD80E20A1EF35003A7E59 /* PCTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08FD80D20A1EF35003A7E59 /* PCTouristTests.swift */; };
+		A08FD81620A20278003A7E59 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A08FD81520A20278003A7E59 /* Helper.swift */; };
 		A0A05EA0207579B2000D3B47 /* RestaurantController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A05E9F207579B2000D3B47 /* RestaurantController.swift */; };
 		A0A5EC5E207ECC1700BE3ABE /* DetailMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A5EC5D207ECC1700BE3ABE /* DetailMapView.swift */; };
 		A0A6A4512083C7B300097AE6 /* DetailMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A6A4502083C7B300097AE6 /* DetailMapViewController.swift */; };
@@ -39,6 +41,16 @@
 		E7A54D83226BD1281293A75B /* Pods_PCTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E90F30628057D7237511A20 /* Pods_PCTourist.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A08FD81020A1EF35003A7E59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A069BBBE2074624F002FAF6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A069BBC52074624F002FAF6F;
+			remoteInfo = PCTourist;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		24C36B618CDE68AE3F0EF1E9 /* Pods-PCTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCTourist.release.xcconfig"; path = "Pods/Target Support Files/Pods-PCTourist/Pods-PCTourist.release.xcconfig"; sourceTree = "<group>"; };
 		58B7EFEE0D58755F9403A064 /* Pods-PCTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PCTourist.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PCTourist/Pods-PCTourist.debug.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +68,10 @@
 		A069BBD020746251002FAF6F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A069BBD320746251002FAF6F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A069BBD520746251002FAF6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A08FD80B20A1EF35003A7E59 /* PCTouristTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PCTouristTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A08FD80D20A1EF35003A7E59 /* PCTouristTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCTouristTests.swift; sourceTree = "<group>"; };
+		A08FD80F20A1EF35003A7E59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A08FD81520A20278003A7E59 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		A0A05E9F207579B2000D3B47 /* RestaurantController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantController.swift; sourceTree = "<group>"; };
 		A0A5EC5D207ECC1700BE3ABE /* DetailMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapView.swift; sourceTree = "<group>"; };
 		A0A6A4502083C7B300097AE6 /* DetailMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailMapViewController.swift; sourceTree = "<group>"; };
@@ -83,6 +99,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7A54D83226BD1281293A75B /* Pods_PCTourist.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A08FD80820A1EF35003A7E59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				A069BBC82074624F002FAF6F /* PCTourist */,
+				A08FD80C20A1EF35003A7E59 /* PCTouristTests */,
 				A069BBC72074624F002FAF6F /* Products */,
 				4E2F9291D5B0B0994F5BFC6F /* Pods */,
 				47BF58959019EDB5DF5C0BDD /* Frameworks */,
@@ -168,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				A069BBC62074624F002FAF6F /* PCTourist.app */,
+				A08FD80B20A1EF35003A7E59 /* PCTouristTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +218,7 @@
 				A069BBD020746251002FAF6F /* Assets.xcassets */,
 				A069BBD220746251002FAF6F /* LaunchScreen.storyboard */,
 				A069BBD520746251002FAF6F /* Info.plist */,
+				A08FD81520A20278003A7E59 /* Helper.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -242,6 +268,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		A08FD80C20A1EF35003A7E59 /* PCTouristTests */ = {
+			isa = PBXGroup;
+			children = (
+				A08FD80D20A1EF35003A7E59 /* PCTouristTests.swift */,
+				A08FD80F20A1EF35003A7E59 /* Info.plist */,
+			);
+			path = PCTouristTests;
+			sourceTree = "<group>";
+		};
 		A0A6A45A2083D41B00097AE6 /* DetailMapViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +324,24 @@
 			productReference = A069BBC62074624F002FAF6F /* PCTourist.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A08FD80A20A1EF35003A7E59 /* PCTouristTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A08FD81420A1EF35003A7E59 /* Build configuration list for PBXNativeTarget "PCTouristTests" */;
+			buildPhases = (
+				A08FD80720A1EF35003A7E59 /* Sources */,
+				A08FD80820A1EF35003A7E59 /* Frameworks */,
+				A08FD80920A1EF35003A7E59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A08FD81120A1EF35003A7E59 /* PBXTargetDependency */,
+			);
+			name = PCTouristTests;
+			productName = PCTouristTests;
+			productReference = A08FD80B20A1EF35003A7E59 /* PCTouristTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -301,6 +354,10 @@
 				TargetAttributes = {
 					A069BBC52074624F002FAF6F = {
 						CreatedOnToolsVersion = 9.3;
+					};
+					A08FD80A20A1EF35003A7E59 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = A069BBC52074624F002FAF6F;
 					};
 				};
 			};
@@ -318,6 +375,7 @@
 			projectRoot = "";
 			targets = (
 				A069BBC52074624F002FAF6F /* PCTourist */,
+				A08FD80A20A1EF35003A7E59 /* PCTouristTests */,
 			);
 		};
 /* End PBXProject section */
@@ -331,6 +389,13 @@
 				A0ED39AB207479B000602434 /* GoogleService-Info.plist in Resources */,
 				A069BBD420746251002FAF6F /* LaunchScreen.storyboard in Resources */,
 				A069BBD120746251002FAF6F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A08FD80920A1EF35003A7E59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,22 +443,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-PCTourist/Pods-PCTourist-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Jelly/Jelly.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/LifetimeTracker/LifetimeTracker.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Jelly.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LifetimeTracker.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -430,12 +491,29 @@
 				A00D9A1A2076C5D900841B14 /* PlacesTableViewController.swift in Sources */,
 				A0ED39AD20747B1200602434 /* AttractionTableViewController.swift in Sources */,
 				A00D9A202076C90200841B14 /* PlaceController.swift in Sources */,
+				A08FD81620A20278003A7E59 /* Helper.swift in Sources */,
 				A0B391F120A0A6FD00FB2058 /* NearbySettingsViewController.swift in Sources */,
 				A02EFCE9208FAC5900502651 /* SocialWebView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A08FD80720A1EF35003A7E59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A08FD80E20A1EF35003A7E59 /* PCTouristTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A08FD81120A1EF35003A7E59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A069BBC52074624F002FAF6F /* PCTourist */;
+			targetProxy = A08FD81020A1EF35003A7E59 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A069BBD220746251002FAF6F /* LaunchScreen.storyboard */ = {
@@ -601,6 +679,46 @@
 			};
 			name = Release;
 		};
+		A08FD81220A1EF35003A7E59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DJ9Q6RC5SN;
+				INFOPLIST_FILE = PCTouristTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = KevinWood.iOSDeveloper.PCTouristTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PCTourist.app/PCTourist";
+			};
+			name = Debug;
+		};
+		A08FD81320A1EF35003A7E59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DJ9Q6RC5SN;
+				INFOPLIST_FILE = PCTouristTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = KevinWood.iOSDeveloper.PCTouristTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PCTourist.app/PCTourist";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -618,6 +736,15 @@
 			buildConfigurations = (
 				A069BBD920746251002FAF6F /* Debug */,
 				A069BBDA20746251002FAF6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A08FD81420A1EF35003A7E59 /* Build configuration list for PBXNativeTarget "PCTouristTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A08FD81220A1EF35003A7E59 /* Debug */,
+				A08FD81320A1EF35003A7E59 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

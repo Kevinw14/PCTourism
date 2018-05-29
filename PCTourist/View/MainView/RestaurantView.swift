@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import LifetimeTracker
 
-class RestaurantView: UIView {
+class RestaurantView: UIView, LifetimeTrackable {
+    
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Restaurant View")
+    
     
     var restaurantController: RestaurantTableViewController? {
         didSet {
@@ -27,5 +31,15 @@ class RestaurantView: UIView {
         searchController.obscuresBackgroundDuringPresentation = true
         return searchController
     }()
+    
+    override init(frame: CGRect) {
+        super .init(frame: frame)
+        trackLifetime()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 

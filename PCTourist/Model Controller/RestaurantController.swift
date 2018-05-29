@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import LifetimeTracker
 
-class RestaurantController {
+class RestaurantController: LifetimeTrackable {
     
-    
+    static var lifetimeConfiguration = LifetimeConfiguration(maxCount: 1, groupName: "Restaurant Controller")
     
     //MARK: - Private Keys
     
@@ -45,13 +46,35 @@ class RestaurantController {
             
             if let data = data {
                 do {
-                    let jsonDecoder = JSONDecoder()
-                    let restaurantArray = try jsonDecoder.decode([Business].self, from: data)
-                    self?.restaurants = restaurantArray.sorted(by: {$0.name < $1.name})
+                    guard let jsonDictionaryArray = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [[String:Any]] else { return }
+                    var fetchedRestaurants: [Business] = []
+                    for jsonDictionary in jsonDictionaryArray {
+                        guard let restaurant = Business(jsonDictionary: jsonDictionary) else { return }
+                        fetchedRestaurants.append(restaurant)
+                    }
+                    DispatchQueue.main.async {
+                        self?.restaurants = fetchedRestaurants.sorted(by: {$0.name < $1.name})
+                    }
                 } catch {
-                    print("Error in FetchRestaurant Data: \(error.localizedDescription)")
-                    return
+                    print("Error in Serialization: \(error.localizedDescription)")
                 }
+            }
+        }
+        dataTask.resume()
+    }
+    
+    func fetchRestaurantImages(url: String, completion: @escaping(UIImage?) -> Void) {
+        guard let imageUrl = URL(string: url) else { return }
+        
+        let dataTask = URLSession.shared.dataTask(with: imageUrl) { (data, _, error) in
+            if let error = error {
+                print("Error in image data task: \(error.localizedDescription)")
+                return
+            }
+            
+            if let data = data {
+                let image = UIImage(data: data)
+                completion(image)
             }
         }
         dataTask.resume()
@@ -61,5 +84,6 @@ class RestaurantController {
     
     private init() {
         fetchRestaurants()
+        trackLifetime()
     }
 }
